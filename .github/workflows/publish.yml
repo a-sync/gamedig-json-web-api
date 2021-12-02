@@ -11,8 +11,10 @@ jobs:
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: 🐙 Add new remote, and push to master
         run: |
           git remote add cloudnode ${{ secrets.CLOUD_REPO_URL }}
-          git push cloudnode cloud:master
+          git push -f cloudnode cloud:master
