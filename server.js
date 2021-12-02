@@ -28,7 +28,7 @@ const listenUdpPort = parseInt(process.env.LISTEN_UDP_PORT, 2) || undefined;
             listenUdpPort
         })
             .then(data => {
-            res.end(JSON.stringify(data, null, 2));
+            res.end(JSON.stringify(data, null, DBG ? 2 : null));
         })
             .catch(error => {
             if (DBG)

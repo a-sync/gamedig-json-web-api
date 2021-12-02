@@ -28,7 +28,7 @@ createServer((req, res) => {
             listenUdpPort
         })
             .then(data => {
-                res.end(JSON.stringify(data, null, 2));
+                res.end(JSON.stringify(data, null, DBG ? 2 : null));
             })
             .catch(error => {
                 if (DBG) console.error('Error: %s', error.message);
