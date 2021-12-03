@@ -2,13 +2,13 @@ import { createServer } from 'http';
 import { parse } from 'url';
 import { query, Type } from 'gamedig';
 
-const maxAttempts = parseInt(process.env.MAX_ATTEMPTS, 2) || 1;
-const socketTimeout = parseInt(process.env.SOCKET_TIMEOUT, 2) || 2000;
-const attemptTimeout = parseInt(process.env.ATTEMPT_TIMEOUT, 2) || 10000;
+const maxAttempts = parseInt(process.env.MAX_ATTEMPTS, 10) || 1;
+const socketTimeout = parseInt(process.env.SOCKET_TIMEOUT, 10) || 2000;
+const attemptTimeout = parseInt(process.env.ATTEMPT_TIMEOUT, 10) || 10000;
 const givenPortOnly = Boolean(process.env.GIVEN_PORT_ONLY) || false;
-const listenUdpPort = parseInt(process.env.LISTEN_UDP_PORT, 2) || undefined;
+const listenUdpPort = parseInt(process.env.LISTEN_UDP_PORT, 10) || undefined;
 
-const CACHE_MAX_AGE = parseInt(process.env.CACHE_MAX_AGE, 2) || 0;
+const CACHE_MAX_AGE = parseInt(process.env.CACHE_MAX_AGE, 10) || 0;
 const DBG = Boolean(process.env.DBG) || false;
 
 createServer((req, res) => {
@@ -19,7 +19,7 @@ createServer((req, res) => {
         query({
             type: String(q.type) as Type,
             host: String(q.host),
-            port: parseInt(String(q.port), 2),
+            port: parseInt(String(q.port), 10),
             requestRules: Boolean(q.requestRules),
             maxAttempts,
             socketTimeout,
