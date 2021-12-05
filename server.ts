@@ -13,9 +13,12 @@ const DBG = Boolean(process.env.DBG) || false;
 
 createServer((req, res) => {
     const q = parse(req.url, true).query;
-    if (DBG) console.log('%o', q);
-
+    if (DBG) console.log((new Date()).toJSON() + ' %O', q);
     if (q.type && q.host) {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'max-age=' + String(CACHE_MAX_AGE)
+        };
         query({
             type: String(q.type) as Type,
             host: String(q.host),
@@ -28,18 +31,11 @@ createServer((req, res) => {
             // @ts-ignore
             listenUdpPort
         }).then(data => {
-            res.writeHead(200, {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'max-age=' + String(CACHE_MAX_AGE)
-            });
+            res.writeHead(200, headers);
             res.end(JSON.stringify(data, null, DBG ? 2 : null));
         }).catch(err => {
-            res.writeHead(404, {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'max-age=' + String(CACHE_MAX_AGE)
-            });
-
             if (DBG) console.error('Error: %s', err.message);
+            res.writeHead(404, headers);
             res.end(JSON.stringify({ error: err.message }, null, DBG ? 2 : null));
         });
     } else {

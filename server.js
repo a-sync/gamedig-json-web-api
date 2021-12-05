@@ -13,8 +13,12 @@ const DBG = Boolean(process.env.DBG) || false;
 (0, http_1.createServer)((req, res) => {
     const q = (0, url_1.parse)(req.url, true).query;
     if (DBG)
-        console.log('%o', q);
+        console.log((new Date()).toJSON() + ' %O', q);
     if (q.type && q.host) {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'max-age=' + String(CACHE_MAX_AGE)
+        };
         (0, gamedig_1.query)({
             type: String(q.type),
             host: String(q.host),
@@ -27,18 +31,12 @@ const DBG = Boolean(process.env.DBG) || false;
             // @ts-ignore
             listenUdpPort
         }).then(data => {
-            res.writeHead(200, {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'max-age=' + String(CACHE_MAX_AGE)
-            });
+            res.writeHead(200, headers);
             res.end(JSON.stringify(data, null, DBG ? 2 : null));
         }).catch(err => {
-            res.writeHead(404, {
-                'Content-Type': 'application/json',
-                'Cache-Control': 'max-age=' + String(CACHE_MAX_AGE)
-            });
             if (DBG)
                 console.error('Error: %s', err.message);
+            res.writeHead(404, headers);
             res.end(JSON.stringify({ error: err.message }, null, DBG ? 2 : null));
         });
     }
