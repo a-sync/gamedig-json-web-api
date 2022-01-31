@@ -1,8 +1,9 @@
 # gamedig.cloudno.de
+Web service that returns gamedig query results in JSON format
 
 ## Accepted request query fields
-* **type**
-* **host**
+* **type**: gamedig game type
+* **host**: domain or IP of server
 * port
 * requestRules
 
@@ -13,3 +14,9 @@ Object. Return value of [node-gamedig](https://github.com/a-sync/node-gamedig#re
 ## Error response
 _Status 404 application/json_  
 Object. Has a single `error` field with string value.
+
+## Examples
+```
+https://gamedig.cloudno.de/?type=arma3&host=arma.coalitiongroup.net&port=2313
+https://gamedig.cloudno.de/?type=arma3&host=eu.fridaynightfight.org&requestRules=1
+```
