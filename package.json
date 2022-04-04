@@ -10,7 +10,7 @@
   "author": "a-sync@devs.space",
   "license": "GPLv3",
   "dependencies": {
-    "gamedig": "github:a-sync/node-gamedig#feature/node8"
+    "gamedig": "github:a-sync/node8-gamedig"
   },
   "devDependencies": {
     "@types/gamedig": "^3.0.1",
