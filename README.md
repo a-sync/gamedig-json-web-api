@@ -1,4 +1,4 @@
-# gamedig.cloudno.de
+# gamedig-json-web-api
 Web service that returns gamedig query results in JSON format
 
 ## Accepted request query fields
