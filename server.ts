@@ -39,7 +39,7 @@ createServer((req, res) => {
             res.end(JSON.stringify({ error: err.message }, null, DBG ? 2 : null));
         });
     } else {
-        res.writeHead(301, { 'Location': 'https://github.com/a-sync/gamedig.cloudno.de' });
+        res.writeHead(301, { 'Location': 'https://github.com/a-sync/gamedig-json-web-api#accepted-request-query-fields' });
         res.end();
     }
 }).listen(80, '0.0.0.0');
